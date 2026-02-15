@@ -45,4 +45,4 @@ Agent listens → Receives event → Processes → Emits event
         event = Event.create(event_type=event_type,
                              payload=payload,
                              source_agent=self.name)
-        self.event_bus.publish(event.model_dump())
+        self.event_bus.publish(event)

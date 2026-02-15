@@ -1,18 +1,19 @@
 from typing import Dict, Any
 from src.agents.base_agent import BaseAgent
+from src.data.schemas import Event
 
 class IngestionAgent(BaseAgent):
     """
     Handles Raw data ingestion
     """
 
-    def can_handle(self, event_type: str) -> bool:
-        return event_type == "raw_data_received"
+    def can_handle(self, event: str) -> bool:
+        return event.event_type == "raw_data_received"
 
-    def handle(self, event: Dict[str, Any]) -> None:
+    def handle(self, event: Event) -> None:
         print(f"[{self.name}] Processing raw data...")
 
-        raw_payload = event["payload"]
+        raw_payload = event.payload
 
         processing_data = {
             "user_id": raw_payload.get("user_id"),

@@ -13,7 +13,7 @@ class EventBus:
 
     def __init__(self):
         self.subscribers: List[Any] = []   # Stores all agents registered to system.
-        self.lock = threading.Lock()
+        self.lock = threading.RLock()
         
 
     def register(self,agent):
@@ -29,5 +29,5 @@ class EventBus:
         """
         with self.lock:
             for agent in self.subscribers:
-                if agent.can_handle(event['event_type']):
+                if agent.can_handle(event):
                     agent.handle(event)
