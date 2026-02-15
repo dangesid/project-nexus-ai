@@ -15,12 +15,13 @@ Every Agent must :
 Agent listens → Receives event → Processes → Emits event    
     """
 
-    def __init__(self, name: str, event_bus):
+    def __init__(self, name: str, event_bus, memory=None):
         """
         Event Bus is A message broker inside our system 
         """
         self.name = name
         self.event_bus = event_bus
+        self.memory = memory
 
     @abstractmethod
     def can_handle(self,event_type: str) -> bool:
