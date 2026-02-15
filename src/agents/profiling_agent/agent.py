@@ -20,6 +20,9 @@ class ProfilingAgent(BaseAgent):
                 "profile_strength": "intermediate"
             }
 
+            memory_key = f"user_profile:{user_id}"
+            self.memory.save(memory_key, profile_data)
+            
             print(f"[{self.name}] Publising user profile updated event")
             
             self.publish(
