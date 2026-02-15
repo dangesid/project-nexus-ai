@@ -49,3 +49,6 @@ htmlcov/
 # Local data files
 src/data/raw/*
 src/data/processed/*
+
+#extra files 
+*.txt 
