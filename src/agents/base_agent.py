@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict
+from src.data.schemas import Event
+
 
 class BaseAgent(ABC):
     """
@@ -34,11 +36,13 @@ Agent listens → Receives event → Processes → Emits event
         """
         pass
 
-    def publish(self,event: Dict[str, Any]) -> None:
+    def publish(self,event_type: str, payload: Dict[str, Any]) -> None:
         """
         Publish  a new event to the event bus 
         """
         #this enforces decoupling all the agents depends on event bus, 
         # not each other
-        self.event_bus.publish(event) 
-             
+        event = Event.create(event_type=event_type,
+                             payload=payload,
+                             source_agent=self.name)
+        self.event_bus.publish(event.model_dump())
