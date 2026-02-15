@@ -1,18 +1,21 @@
 from typing import Dict, Any, List
 import threading
+from collections import deque
+
 
 class EventBus:
     """
-    Simple in memory event bus.
+    Queue-based in memory event bus.
 
     Responsibilities:
     - Register agents
-    - Publish events
-    - notify Interested agents 
+    - Publish events ----> Queue Events (changed functionality)
+    - notify Interested agents -----> Dispatch events sequentially
     """
 
     def __init__(self):
         self.subscribers: List[Any] = []   # Stores all agents registered to system.
+        self.queue = deque()
         self.lock = threading.RLock()
         
 
@@ -28,6 +31,19 @@ class EventBus:
         Publish an event to all interested agents.
         """
         with self.lock:
+            self.queue.append(event)
+
+    def start(self):
+        """
+        Start processing events in FIFO order. 
+        """
+        while True:
+            with self.lock:
+                if not self.queue:
+                    break
+                event = self.queue.popleft()
+
+            # No Lock while calling handlers 
             for agent in self.subscribers:
                 if agent.can_handle(event):
                     agent.handle(event)
