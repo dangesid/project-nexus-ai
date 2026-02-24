@@ -1,0 +1,22 @@
+# ===== Core =====
+pydantic>=2.6.0
+python-dotenv>=1.0.0
+
+# ===== LLM Layer =====
+langchain>=0.2.0
+langchain-openai>=0.1.0
+
+# ===== HuggingFace Inference =====
+huggingface_hub>=0.23.0
+requests>=2.31.0
+
+# ===== Future API layer (optional but recommended now) =====
+fastapi>=0.110.0
+uvicorn>=0.29.0
+
+# ===== Data / utils =====
+numpy>=1.26.0
+pandas>=2.2.0
+
+# ===== Dev / testing =====
+pytest>=8.0.0
