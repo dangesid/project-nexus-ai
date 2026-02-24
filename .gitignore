@@ -51,4 +51,4 @@ src/data/raw/*
 src/data/processed/*
 
 #extra files 
-*.txt 
+*.txt .env
